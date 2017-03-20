@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.validation.constraints.Pattern;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -15,15 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
-//@XmlRootElement 
-public class Product implements Serializable{
-
-	private static final long serialVersionUID = 3678107792576131001L;
+public class Product{
 	
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private long id;
 	
+	@Pattern(regexp="P[1-9]+", message="{must start with letter P}") 
   	private String productId;
 	
  	private String productName;
@@ -34,8 +34,9 @@ public class Product implements Serializable{
 	
 	//private Catagory category;
 
-	//@JsonIgnore 
-	//private MultipartFile  productImage;
+	@JsonIgnore 
+	@Transient
+	private MultipartFile  productImage;
 
 	public Product() {
 		super();
@@ -48,7 +49,7 @@ public class Product implements Serializable{
 		this.productName = productName;
 		this.productUnitPrice = productUnitPrice;
 		this.productDescription = productDescription;
-		//this.productImage = productImage;
+		this.productImage = productImage;
 	}
 
 
@@ -96,16 +97,15 @@ public class Product implements Serializable{
 
 
 
-//	public void setProductImage(MultipartFile productImage) {
-//		this.productImage = productImage;
-//	}
-//
-//
-//
-//	@XmlTransient  
-//	public MultipartFile getProductImage() {
-//		return productImage;
-//	}
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
+	}
+
+
+	@XmlTransient  
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
 
 	
 	@Override
