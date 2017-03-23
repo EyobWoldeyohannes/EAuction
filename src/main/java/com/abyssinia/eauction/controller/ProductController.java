@@ -24,9 +24,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.abyssinia.eauction.domain.Category;
+import com.abyssinia.eauction.domain.Customer;
 import com.abyssinia.eauction.domain.Product;
 import com.abyssinia.eauction.exception.NoProductsFoundUnderCategoryException;
 import com.abyssinia.eauction.exception.ProductNotFoundException;
+import com.abyssinia.eauction.service.CustomerService;
 import com.abyssinia.eauction.service.ProductService;
 
 
@@ -37,13 +39,14 @@ public class ProductController {
 	@Autowired
 	private ProductService productService;
  
-//	@Autowired
-//	private CustomerService customerService;
+	@Autowired
+	private CustomerService customerService;
  
 
 	@RequestMapping
 	public String list(Model model) {
-		model.addAttribute("products", productService.getAllProducts());
+		//model.addAttribute("products", productService.getAllProducts());
+		model.addAttribute("products", productService.getAllUnbiddableProducts());
 		return "products";
 	}
 	
@@ -56,17 +59,17 @@ public class ProductController {
 		return modelAndView;
 	}
 	
-	@RequestMapping("/{category}")
-	public String getProductsByCategory(Model model, @PathVariable("category") Category category) {
-		List<Product> products = productService.getProductsByCategory(category);
-
-		if (products == null || products.isEmpty()) {
-			throw new NoProductsFoundUnderCategoryException();
-		}
-
-		model.addAttribute("products", products);
-		return "products";
-	}
+//	@RequestMapping("/{category}")
+//	public String getProductsByCategory(Model model, @PathVariable("category") Category category) {
+//		List<Product> products = productService.getProductsByCategory(category);
+//
+//		if (products == null || products.isEmpty()) {
+//			throw new NoProductsFoundUnderCategoryException();
+//		}
+//
+//		model.addAttribute("products", products);
+//		return "products";
+//	}
 
 	
 	@RequestMapping("/filter/{ByCriteria}")
@@ -76,13 +79,19 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/product")
-	public String getProductById(Model model, @RequestParam("id") String productId) {
+	public String getProductByProductId(Model model, @RequestParam("id") String productId) {
 
 		Product product = productService.getProductByProductId(productId);
 		model.addAttribute("product", product);
 		return "product";
 	}
 
+	@RequestMapping("/delete")
+	public String deleteProductByProductId(Model model, @RequestParam("id") String productId) {
+		Product product = productService.getProductByProductId(productId);
+		productService.deleteProduct(product);
+		return "redirect:/products";
+	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String getAddNewProductForm(@ModelAttribute("newProduct") Product newProduct) {
@@ -96,7 +105,7 @@ public class ProductController {
 		}
 
  		MultipartFile productImage = productToBeAdded.getProductImage();
-		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
+ 		String rootDirectory = request.getSession().getServletContext().getRealPath("/");
 				
 			if (productImage!=null && !productImage.isEmpty()) {
 		       try {
@@ -107,6 +116,10 @@ public class ProductController {
 		   }
 
 		try {
+			
+			Customer c = new Customer("Eyob","Mar", 29, "Male", "sdfsdf", "Address");
+			customerService.addCustomer(c);
+			
 			productService.addProduct(productToBeAdded);
 		} catch (Exception up) {
 	      System.out.println("Transaction Failed!!!");

@@ -47,11 +47,11 @@ public class ProductServiceImpl implements ProductService{
 		productRepository.delete(product);
 	}
 
-	@Override
-	public List<Product> getProductsByCategory(Category category) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	@Override
+//	public List<Product> getProductsByCategory(Category category) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public Set<Product> getProductsByFilter(Map<String, List<String>> filterParams) {
@@ -59,5 +59,16 @@ public class ProductServiceImpl implements ProductService{
 		return null;
 	}
 
+	@Override
+	public List<Product> getAllUnbiddableProducts() {
+		return (List<Product>)productRepository.findAllUnbiddable();
+	}
+
+	@Override
+	public List<Product> getAllBiddableProducts() {
+		return (List<Product>)productRepository.findAllBiddable();
+	}
+
+	
 	
 }

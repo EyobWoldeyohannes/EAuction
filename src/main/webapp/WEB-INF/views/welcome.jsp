@@ -1,5 +1,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
@@ -15,17 +16,17 @@
 				<img src="<spring:url value='/resource/images/group.png' />" />
 				<h1> ${greeting} </h1>
 				<p> ${tagline} </p>
-				<%-- <p>
+				<p>
 					<security:authorize access="isAuthenticated()">
 						Welcome <security:authentication property="principal.username"/>
 					</security:authorize>
-				</p> --%>
+				</p> 
 			</div>	 
  
 				  <div>
-				 <%--  <security:authorize access="isAnonymous()">
+				   <security:authorize access="isAnonymous()">
 				  		<a href="<spring:url value='/login'/>" class="btn btn-default pull-right">  Login</a>
-				  </security:authorize> --%>
+				  </security:authorize> 
 		
 					 <a href="<spring:url value='/products' />"> Go to Community
 					</a>

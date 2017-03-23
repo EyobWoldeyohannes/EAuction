@@ -13,13 +13,15 @@ public interface ProductService {
 	void addProduct(Product product);
 	
 	List<Product> getAllProducts();
+	List<Product> getAllUnbiddableProducts();
+	List<Product> getAllBiddableProducts();
 
 	Product getProductByProductId(String productID);
 	
-	List<Product> getProductsByCategory(Category category);
+	//List<Product> getProductsByCategory(Category category);
 
 	Set<Product> getProductsByFilter(Map<String, List<String>> filterParams);
 	
 	void deleteProduct(Product product);
-	
+
 }

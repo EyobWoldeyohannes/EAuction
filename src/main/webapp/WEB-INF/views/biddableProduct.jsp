@@ -8,13 +8,13 @@
  -->	
  	<script	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.1/angular.min.js"></script>
 	<script src="<spring:url value="/resource/js/controllers.js"/>"></script>
-<title>Products</title>
+<title>Biddable Product</title>
 </head>
 <body>
 	<section>
 		<div>
 			<div>
-				<h1>Products</h1>
+				<h1>Biddable Product</h1>
 			</div>
 		</div>
 	</section>
@@ -23,20 +23,24 @@
 	
 		<div>
 		<div>
-			<img src="<c:url value="/resource/images/${product.productId}.png"></c:url>" alt="image"  style = "width:100%"/>
+			<img src="<c:url value="/resource/images/${biddableProduct.productId}.png"></c:url>" alt="image"  style = "width:100%"/>
 		</div>
 		
 			<div>
-				<h3>${product.productName}</h3>
-				<p>${product.productDescription}</p>
 				<p>
-					<strong>Item Code : </strong><span>${product.productId}</span>
+					<strong>Product Code : </strong><span>${biddableProduct.productId}</span>
 				</p>
-				<%-- <p>
-					<strong>category</strong> : ${product.category}
-				</p> --%>
-				<h4>${product.productUnitPrice} USD</h4>
-				</p>
+				<h3>Product Name : ${biddableProduct.productName}</h3>
+				<p>Product Description : ${biddableProduct.productDescription}</p>
+				<p>Product Category : ${biddableProduct.productDescription}</p>
+				<p>Product Unit Price : ${biddableProduct.productUnitPrice}USD</p>
+				<p>Bid Start Date : ${biddableProduct.startDate}</p>
+				<p>Bid End Date : ${biddableProduct.endDate}</p>
+				<p>Bidding Price :${biddableProduct.bidPrice}USD</p>
+				<p>Pay per Bid : ${biddableProduct.payPerBid}</p>
+				<p>Profit per this : ${biddableProduct.profit}USD</p>
+				<p>Status : ${biddableProduct.status}</p>
+							
 				
 				<%-- <p ng-controller="cartCtrl">
 					<a href="#" ng-click="addToCart('${product.productId}')"> Order Now </a>
@@ -47,7 +51,7 @@
  				<%-- <a href=" <spring:url value="/products/product/edit?id=${product.productId}" /> "> Edit
  				 --%>
  				 <p>
- 				<a href="<spring:url value="/products" />"> Back</a>
+ 				<a href="<spring:url value="/biddables" />"> Back</a>
  				</p>
 
 				

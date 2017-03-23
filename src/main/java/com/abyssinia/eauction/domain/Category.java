@@ -1,20 +1,11 @@
 package com.abyssinia.eauction.domain;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
-
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.springframework.web.multipart.MultipartFile;
-
-
-@Entity
+//@Entity
 public class Category implements Serializable{
 
 	private static final long serialVersionUID = 3678107792576131001L;
@@ -34,7 +25,6 @@ public class Category implements Serializable{
 	}
 
 	public Category(String categoryId, String categoryName, String categoryDescription) {
-		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryDescription = categoryDescription;

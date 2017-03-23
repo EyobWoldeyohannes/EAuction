@@ -1,26 +1,26 @@
 package com.abyssinia.eauction.domain;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Transient;
 import javax.validation.constraints.Pattern;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class Product{
 	
 	@Id 
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.TABLE)
 	private long id;
 	
 	@Pattern(regexp="P[1-9]+", message="{must start with letter P}") 
@@ -28,28 +28,45 @@ public class Product{
 	
  	private String productName;
 	
- 	private BigDecimal productUnitPrice;
+ 	private double productUnitPrice;
  	
 	private String productDescription;
 	
+	private boolean biddable;
+	
 	//private Catagory category;
 
-	@JsonIgnore 
+	//@JsonIgnore 
 	@Transient
 	private MultipartFile  productImage;
 
 	public Product() {
-		super();
 	}
 
 	
-	public Product(String productId, String productName, BigDecimal productUnitPrice, String productDescription,
-			MultipartFile productImage) {
+	public Product(String productId, String productName, double productUnitPrice, String productDescription,
+			MultipartFile productImage, boolean biddable) {
 		this.productId = productId;
 		this.productName = productName;
 		this.productUnitPrice = productUnitPrice;
 		this.productDescription = productDescription;
 		this.productImage = productImage;
+		this.biddable = biddable;
+	}
+
+	
+	public boolean isBiddable() {
+		return biddable;
+	}
+
+
+	public void setBiddable(boolean biddable) {
+		this.biddable = biddable;
+	}
+
+
+	public long getId() {
+		return id;
 	}
 
 
@@ -73,13 +90,13 @@ public class Product{
 
 
 
-	public BigDecimal getProductUnitPrice() {
+	public double getProductUnitPrice() {
 		return productUnitPrice;
 	}
 
 
 
-	public void setProductUnitPrice(BigDecimal productUnitPrice) {
+	public void setProductUnitPrice(double productUnitPrice) {
 		this.productUnitPrice = productUnitPrice;
 	}
 

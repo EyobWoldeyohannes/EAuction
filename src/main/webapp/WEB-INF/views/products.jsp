@@ -30,10 +30,20 @@
 							<p>${product.productDescription}</p>
 							<p>${product.productUnitPrice}USD</p>
 							<p>
-								<a href=" <spring:url value="/products/product?id=${product.productId}" /> "> Details
-								</a>
+								<a href=" <spring:url value="/products/product?id=${product.productId}" /> "> Details</a>
 							</p>
-
+							
+							<p>
+								<a href=" <spring:url value="/products/delete?id=${product.productId}" /> "> Delete</a>
+							</p>
+							
+							<p>
+								<a href="<spring:url value="/biddables/add?id=${product.productId}" /> "> Make Biddable</a>
+							</p>
+							
+							<p>
+								<a href=" <spring:url value="/products/" /> "> Back</a>
+							</p>
 						</div>
 					</div>
 				</div>
